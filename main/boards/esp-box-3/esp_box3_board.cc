@@ -12,6 +12,7 @@
 #include <esp_lcd_panel_vendor.h>
 #include <driver/i2c_master.h>
 #include <driver/spi_common.h>
+#include <wifi_station.h>
 
 #define TAG "EspBox3Board"
 
@@ -190,6 +191,12 @@ private:
     void InitializeIot() {
         auto& thing_manager = iot::ThingManager::GetInstance();
         thing_manager.AddThing(iot::CreateThing("Speaker"));
+        thing_manager.AddThing(iot::CreateThing("Lamp"));
+        thing_manager.AddThing(iot::CreateThing("Lamp2"));
+        thing_manager.AddThing(iot::CreateThing("Lamp3"));
+        thing_manager.AddThing(iot::CreateThing("Lamp4"));
+        thing_manager.AddThing(iot::CreateThing("Cover"));
+        thing_manager.AddThing(iot::CreateThing("Vacuum"));
     }
 
 public:
@@ -212,9 +219,9 @@ public:
         return audio_codec;
     }
 
-    virtual Display* GetDisplay() override {
-        return display_;
-    }
+    // virtual Display* GetDisplay() override {
+    //     return display_;
+    // }
 };
 
 DECLARE_BOARD(EspBox3Board);

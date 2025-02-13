@@ -1,16 +1,19 @@
 [
     {
         "name": "lamp",
-        "description": "A lamp",
+        "description": "吸顶灯",
         "properties": {
             "power": {
                 "type": "boolean",
-                "description": "Whether the lamp is on or off"
+                "description": "当前灯的开关状态"
             }
         },
         "methods": {
             "TurnOn": {
-                "description": "Turns the lamp on"
+                "description": "打开灯"
+            },
+            "TurnOff": {
+                "description": "关闭灯"
             }
         }
     },

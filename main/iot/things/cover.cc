@@ -6,12 +6,12 @@
 #include <esp_log.h>
 #include "iot/ha_client/ha_client.h"
 
-#define TAG "Lamp"
+#define TAG "Cover"
 
 namespace iot {
 
-// 这里仅定义 Lamp 的属性和方法，不包含具体的实现
-class Lamp : public Thing {
+// 这里仅定义 Cover 的属性和方法，不包含具体的实现
+class Cover : public Thing {
 private:
     gpio_num_t gpio_num_ = GPIO_NUM_18;
     bool power_ = false;
@@ -29,26 +29,26 @@ private:
     }
 
 public:
-    Lamp() : Thing("Lamp", "直播间的吸顶灯"), power_(false) {
+    Cover() : Thing("Cover", "直播间的窗帘"), power_(false) {
         InitializeGpio();
 
         // 定义设备的属性
-        properties_.AddBooleanProperty("power", "灯是否打开", [this]() -> bool {
+        properties_.AddBooleanProperty("power", "窗帘是否打开", [this]() -> bool {
             return power_;
         });
 
         // 定义设备可以被远程执行的指令
-        methods_.AddMethod("TurnOn", "打开灯", ParameterList(), [this](const ParameterList& parameters) {
+        methods_.AddMethod("TurnOn", "把窗帘拉开", ParameterList(), [this](const ParameterList& parameters) {
             power_ = true;
             // gpio_set_level(gpio_num_, 1);
-            ESP_LOGI(TAG, "打开直播间灯");
-            HaClient::GetInstance().post_services_light_toggle("light.tze200_r1d2pzjq_ts0601_deng_guang_3", true);
+            ESP_LOGI(TAG, "打开直播间窗帘");
+            HaClient::GetInstance().post_services_cover_toggle("cover.lonsam_cn_1121903107_ct05_s_2", true);
         });
 
-        methods_.AddMethod("TurnOff", "关闭灯", ParameterList(), [this](const ParameterList& parameters) {
+        methods_.AddMethod("TurnOff", "把窗帘拉上", ParameterList(), [this](const ParameterList& parameters) {
             power_ = false;
-            ESP_LOGI(TAG, "关闭直播间灯");
-            HaClient::GetInstance().post_services_light_toggle("light.tze200_r1d2pzjq_ts0601_deng_guang_3", false);
+            ESP_LOGI(TAG, "关闭直播间窗帘");
+            HaClient::GetInstance().post_services_cover_toggle("cover.lonsam_cn_1121903107_ct05_s_2", false);
             // gpio_set_level(gpio_num_, 0);
         });
     }
@@ -56,4 +56,4 @@ public:
 
 } // namespace iot
 
-DECLARE_THING(Lamp);
+DECLARE_THING(Cover);
