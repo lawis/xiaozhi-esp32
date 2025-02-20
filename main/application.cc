@@ -188,6 +188,9 @@ void Application::StopListening() {
 }
 
 void Application::Start() {
+
+    ESP_LOGI(TAG, ">>>>>>>>>>>>> Start");
+
     auto& board = Board::GetInstance();
     SetDeviceState(kDeviceStateStarting);
 
@@ -222,7 +225,7 @@ void Application::Start() {
         vTaskDelete(NULL);
     }, "main_loop", 4096 * 2, this, 2, nullptr);
 
-    /* Wait for the network to be ready */
+    // /* Wait for the network to be ready */
     board.StartNetwork();
 
     // Check for new firmware version or get the MQTT broker address
@@ -233,6 +236,7 @@ void Application::Start() {
     }, "check_new_version", 4096 * 2, this, 1, nullptr);
 
 #if CONFIG_IDF_TARGET_ESP32S3
+    ESP_LOGI(TAG, ">> Call CONFIG_IDF_TARGET_ESP32S3》》");
     audio_processor_.Initialize(codec->input_channels(), codec->input_reference());
     audio_processor_.OnOutput([this](std::vector<int16_t>&& data) {
         background_task_.Schedule([this, data = std::move(data)]() mutable {
@@ -294,7 +298,7 @@ void Application::Start() {
 #endif
 
     // Initialize the protocol
-    display->SetStatus("初始化协议");
+    display->SetStatus("初始化协议2");
 #ifdef CONFIG_CONNECTION_TYPE_WEBSOCKET
     protocol_ = std::make_unique<WebsocketProtocol>();
 #else
