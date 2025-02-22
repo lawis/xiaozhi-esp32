@@ -10,8 +10,16 @@
 #include <driver/gpio.h>
 #include <esp_timer.h>
 
+#include "ft5x06.h"
+
+
+
 class QmY1091Display : public Display 
 {
+private:
+    lv_obj_t *user_messge_label_ = nullptr;
+    lv_obj_t *ai_messge_label_ = nullptr;
+
     
 protected:
     bool backlight_output_invert_ = false;
@@ -35,7 +43,6 @@ protected:
 
     void LvglTask();
 
-    virtual void SetupUI();
 
     virtual bool Lock(int timeout_ms = 0) override;
 
@@ -47,7 +54,11 @@ public:
     
     ~QmY1091Display();
 
+    virtual void SetupUI();
+
     void SetChatMessage(const std::string &role, const std::string &content) override;
+
+    void initTouchPanel(FT5x06* tp);
 };
 
 

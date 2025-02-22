@@ -5,6 +5,7 @@
 // lcd driver true width and hight, not board width and hight
 #define QMSD_SCREEN_WIDTH 320
 #define QMSD_SCREEN_HIGHT 480
+#define QMSD_GUI_MAX_BUFFER_NUM 3
 
 #define QMSD_SCREEN_BK_FREQ     11111
 

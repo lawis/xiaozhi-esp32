@@ -298,7 +298,7 @@ void Application::Start() {
 #endif
 
     // Initialize the protocol
-    display->SetStatus("初始化协议2");
+    display->SetStatus("初始化协议");
 #ifdef CONFIG_CONNECTION_TYPE_WEBSOCKET
     protocol_ = std::make_unique<WebsocketProtocol>();
 #else
