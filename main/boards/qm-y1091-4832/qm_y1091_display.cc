@@ -223,13 +223,16 @@ void QmY1091Display::SetupUI() {
     lv_obj_set_style_radius(content_, 0, 0);
     lv_obj_set_width(content_, LV_HOR_RES);
     lv_obj_set_flex_grow(content_, 1);
-
-    
-
     lv_obj_set_style_bg_color(content_, lv_color_make(0x00, 0x0, 0x00), LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_set_flex_flow(content_, LV_FLEX_FLOW_COLUMN); // 垂直布局（从上到下）
     lv_obj_set_flex_align(content_, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_SPACE_EVENLY); // 子对象居中对齐，等距分布
+
+
+    // lv_obj_t* rect = lv_obj_create(content_);
+    // lv_obj_set_size(rect, 50, 50);
+    // lv_obj_set_style_border_width(rect, 0, 0);
+    // lv_obj_set_style_bg_color(rect, lv_color_make(0xFF, 0xFF, 0xFF), LV_PART_MAIN | LV_STATE_DEFAULT);
 
 
     lv_obj_t* mainIconArea = lv_obj_create(content_);
@@ -240,18 +243,20 @@ void QmY1091Display::SetupUI() {
     lv_obj_set_flex_align(mainIconArea, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_SPACE_EVENLY); // 子对象居中对齐，等距分布
     lv_obj_set_style_bg_color(mainIconArea, lv_color_make(0x00, 0x0, 0x00), LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    lv_obj_t* ui_iconBar[5];
-    int iconBar_x[5] = {20, 40, 80, 40, 20};
+    // 
+    int ui_speakBar_height[5] = {40, 50, 80, 50, 40};
 
     for (size_t i = 0; i < 5; i++)
     {
-        ui_iconBar[i] = lv_bar_create(mainIconArea);
-        lv_obj_set_width(ui_iconBar[i], 19);
-        lv_obj_set_height(ui_iconBar[i], iconBar_x[i]);
+        ui_speakBar[i] = lv_obj_create(mainIconArea);
+        lv_obj_set_width(ui_speakBar[i], 30);
+        lv_obj_set_height(ui_speakBar[i], ui_speakBar_height[i]);
+        lv_obj_set_style_radius(ui_speakBar[i], 15, 0);
+        lv_obj_set_style_border_width(ui_speakBar[i], 0, 0);
         // lv_obj_set_x(ui_iconBar[i], 0);
         // lv_obj_set_y(ui_iconBar[i], -14);
         // lv_obj_set_align(ui_iconBar[i], LV_ALIGN_CENTER);
-        lv_obj_set_style_bg_color(ui_iconBar[i], lv_color_make(0xFF, 0xFF, 0xFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_bg_color(ui_speakBar[i], lv_color_make(0xFF, 0xFF, 0xFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     }
     
 
@@ -279,12 +284,14 @@ void QmY1091Display::SetupUI() {
     lv_style_set_width(&style_msg, LV_HOR_RES - 25);
 
     user_messge_label_ = lv_label_create(content_);
+    // lv_obj_set_style_text_color(user_messge_label_, lv_color_make(0xFF, 0xFF, 0xFF), 0);
     lv_obj_set_style_text_font(user_messge_label_, &font_puhui_14_1, 0);
     lv_label_set_text(user_messge_label_, "用户: ");
     lv_obj_add_style(user_messge_label_, &style_msg, 0);
     lv_obj_align(user_messge_label_, LV_ALIGN_TOP_LEFT, 2, 25);
 
     ai_messge_label_ = lv_label_create(content_);
+    // lv_obj_set_style_text_color(ai_messge_label_, lv_color_make(0xFF, 0xFF, 0xFF), 0);
     lv_obj_set_style_text_font(ai_messge_label_, &font_puhui_14_1, 0);
     lv_label_set_text(ai_messge_label_, "小志: ");
     lv_obj_add_style(ai_messge_label_, &style_msg, 0);
@@ -303,6 +310,7 @@ void QmY1091Display::SetupUI() {
     // lv_obj_set_style_pad_column(content_, 0, 0);
 
     network_label_ = lv_label_create(status_bar_);
+    // lv_obj_set_style_text_color(network_label_, lv_color_make(0xFF, 0xFF, 0xFF), 0);
     lv_label_set_text(network_label_, "");
     lv_obj_set_style_text_font(network_label_, &font_awesome_14_1, 0);
 
@@ -313,6 +321,7 @@ void QmY1091Display::SetupUI() {
     lv_obj_add_flag(notification_label_, LV_OBJ_FLAG_HIDDEN);
 
     status_label_ = lv_label_create(status_bar_);
+    // lv_obj_set_style_text_color(status_label_, lv_color_make(0xFF, 0xFF, 0xFF), 0);
     lv_obj_set_flex_grow(status_label_, 1);
     lv_label_set_long_mode(status_label_, LV_LABEL_LONG_SCROLL_CIRCULAR);
     lv_label_set_text(status_label_, "正在初始化");
